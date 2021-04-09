@@ -21,8 +21,8 @@ public class gameMaker : MonoBehaviour
     
     
     //add components 
-    public Camera cam;                  //add camera
-    public GameObject character;        //add character
+    public Rigidbody2D cam;             //add camera rigidbody
+    public Transform character;        //add character
     public Transform barriers;          //add left and right barriers
     
     
@@ -43,6 +43,7 @@ public class gameMaker : MonoBehaviour
     void Start()
     {
         changeStartHoles();     //change the first 3 platforms position randomly when game starts
+        StartCoroutine(startCameraFollow());
     }
 
 
@@ -59,7 +60,7 @@ public class gameMaker : MonoBehaviour
     void Update()
     {
         //change camera position according to the character position
-        cam.transform.position = new Vector3(cam.transform.position.x, character.transform.position.y - offsetY, cam.transform.position.z);
+        //cam.transform.position = new Vector3(cam.transform.position.x, character.transform.position.y - offsetY, cam.transform.position.z);
         
         
         //change last platforms hole position randomly
@@ -91,11 +92,13 @@ public class gameMaker : MonoBehaviour
 
 
 
-    void moveCamera()
+    
+    //
+    IEnumerator startCameraFollow()
     {
         
-       
-        
+        cam.velocity = new Vector2(cam.velocity.x, -cameraSpeed);
+        yield return null;
     }
     
 }
